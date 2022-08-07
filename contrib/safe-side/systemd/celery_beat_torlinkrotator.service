@@ -1,0 +1,15 @@
+[Unit]
+Description=TorLinkRotator celery worker daemon
+After=network.target
+
+[Service]
+Type=simple
+User=torlinkrotator
+Group=webapps
+WorkingDirectory=/webapps/torlinkrotator/tor-link-rotator
+ExecStart=/bin/sh -c '/webapps/torlinkrotator/tor-link-rotator/tmp/venv/bin/celery -A TorLinkRotator beat --pidfile="/webapps/torlinkrotator/tor-link-rotator/tmp/celery_beat.pid" --logfile="/webapps/torlinkrotator/tor-link-rotator/tmp/celery_beat.log" --loglevel="INFO"'
+ExecStop=/bin/systemctl kill celery_beat_torlinkrotator.service
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

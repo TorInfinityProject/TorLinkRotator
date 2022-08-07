@@ -1,0 +1,16 @@
+.vscode
+
+**/__pycache__/
+*.code-workspace
+
+celerybeat*
+celerybeat-schedule*
+
+tmp/*
+TorLinkRotator/settings/local_config.py
+contrib/dangerous-side/web-app/config.py
+
+.~lock.*
+~$*
+~*.tmp
+*.log

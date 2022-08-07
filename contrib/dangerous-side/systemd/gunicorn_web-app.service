@@ -1,0 +1,24 @@
+[Unit]
+Description=WebApp gunicorn daemon
+After=network.target
+
+[Service]
+User=root
+Group=root
+RuntimeDirectory=gunicorn_webapp
+RuntimeDirectoryMode=0775
+WorkingDirectory=/root/web-app
+
+# For specify correct threads & workers check this resource
+# https://docs.gunicorn.org/en/stable/design.html#how-many-workers
+ExecStart=/root/web-app/tmp/venv/bin/gunicorn \
+		--access-logfile - \
+		--error-logfile /root/web-app/tmp/gunicorn_error.log \
+		--worker-class aiohttp.GunicornWebWorker \
+		--workers <(2 x num_cores) + 1> \
+		--chdir /root/web-app \
+		--bind unix:/var/run/gunicorn_webapp/socket \
+		main:app
+
+[Install]
+WantedBy=multi-user.target
