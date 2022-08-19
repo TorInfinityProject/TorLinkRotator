@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=forking
 User=torlinkrotator
-Group=webapps
+Group=torlinkrotator
 WorkingDirectory=/home/torlinkrotator/TorLinkRotator
 ExecStart=/bin/sh -c '/home/torlinkrotator/TorLinkRotator/tmp/venv/bin/celery -A TorLinkRotator multi start worker_torlinkrotator --pidfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_worker.pid" --logfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_worker.log" --loglevel="INFO"'
 ExecStop=/bin/sh -c '/home/torlinkrotator/TorLinkRotator/tmp/venv/bin/celery -A TorLinkRotator multi stopwait worker_torlinkrotator --pidfile=/home/torlinkrotator/TorLinkRotator/tmp/celery_worker.pid'

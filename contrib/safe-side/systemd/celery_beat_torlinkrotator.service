@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=torlinkrotator
-Group=webapps
+Group=torlinkrotator
 WorkingDirectory=/home/torlinkrotator/TorLinkRotator
 ExecStart=/bin/sh -c '/home/torlinkrotator/TorLinkRotator/tmp/venv/bin/celery -A TorLinkRotator beat --pidfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_beat.pid" --logfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_beat.log" --loglevel="INFO"'
 ExecStop=/bin/systemctl kill celery_beat_torlinkrotator.service

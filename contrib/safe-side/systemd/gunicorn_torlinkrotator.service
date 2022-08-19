@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=torlinkrotator
-Group=webapps
+Group=torlinkrotator
 RuntimeDirectory=gunicorn_torlinkrotator
 RuntimeDirectoryMode=0775
 WorkingDirectory=/home/torlinkrotator/TorLinkRotator
