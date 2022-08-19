@@ -6,10 +6,10 @@ After=network.target
 Type=forking
 User=torlinkrotator
 Group=webapps
-WorkingDirectory=/webapps/torlinkrotator/tor-link-rotator
-ExecStart=/bin/sh -c '/webapps/torlinkrotator/tor-link-rotator/tmp/venv/bin/celery -A TorLinkRotator multi start worker_torlinkrotator --pidfile="/webapps/torlinkrotator/tor-link-rotator/tmp/celery_worker.pid" --logfile="/webapps/torlinkrotator/tor-link-rotator/tmp/celery_worker.log" --loglevel="INFO"'
-ExecStop=/bin/sh -c '/webapps/torlinkrotator/tor-link-rotator/tmp/venv/bin/celery -A TorLinkRotator multi stopwait worker_torlinkrotator --pidfile=/webapps/torlinkrotator/tor-link-rotator/tmp/celery_worker.pid'
-ExecReload=/bin/sh -c '/webapps/torlinkrotator/tor-link-rotator/tmp/venv/bin/celery -A TorLinkRotator multi restart worker_torlinkrotator --pidfile="/webapps/torlinkrotator/tor-link-rotator/tmp/celery_worker.pid" --logfile="/webapps/torlinkrotator/tor-link-rotator/tmp/celery_worker.log" --loglevel="INFO"'
+WorkingDirectory=/home/torlinkrotator/TorLinkRotator
+ExecStart=/bin/sh -c '/home/torlinkrotator/TorLinkRotator/tmp/venv/bin/celery -A TorLinkRotator multi start worker_torlinkrotator --pidfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_worker.pid" --logfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_worker.log" --loglevel="INFO"'
+ExecStop=/bin/sh -c '/home/torlinkrotator/TorLinkRotator/tmp/venv/bin/celery -A TorLinkRotator multi stopwait worker_torlinkrotator --pidfile=/home/torlinkrotator/TorLinkRotator/tmp/celery_worker.pid'
+ExecReload=/bin/sh -c '/home/torlinkrotator/TorLinkRotator/tmp/venv/bin/celery -A TorLinkRotator multi restart worker_torlinkrotator --pidfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_worker.pid" --logfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_worker.log" --loglevel="INFO"'
 
 [Install]
 WantedBy=multi-user.target

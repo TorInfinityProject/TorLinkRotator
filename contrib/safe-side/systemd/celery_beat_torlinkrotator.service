@@ -6,8 +6,8 @@ After=network.target
 Type=simple
 User=torlinkrotator
 Group=webapps
-WorkingDirectory=/webapps/torlinkrotator/tor-link-rotator
-ExecStart=/bin/sh -c '/webapps/torlinkrotator/tor-link-rotator/tmp/venv/bin/celery -A TorLinkRotator beat --pidfile="/webapps/torlinkrotator/tor-link-rotator/tmp/celery_beat.pid" --logfile="/webapps/torlinkrotator/tor-link-rotator/tmp/celery_beat.log" --loglevel="INFO"'
+WorkingDirectory=/home/torlinkrotator/TorLinkRotator
+ExecStart=/bin/sh -c '/home/torlinkrotator/TorLinkRotator/tmp/venv/bin/celery -A TorLinkRotator beat --pidfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_beat.pid" --logfile="/home/torlinkrotator/TorLinkRotator/tmp/celery_beat.log" --loglevel="INFO"'
 ExecStop=/bin/systemctl kill celery_beat_torlinkrotator.service
 RemainAfterExit=yes
 

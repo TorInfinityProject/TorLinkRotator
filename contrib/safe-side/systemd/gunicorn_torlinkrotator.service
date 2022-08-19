@@ -7,16 +7,16 @@ User=torlinkrotator
 Group=webapps
 RuntimeDirectory=gunicorn_torlinkrotator
 RuntimeDirectoryMode=0775
-WorkingDirectory=/webapps/torlinkrotator/tor-link-rotator
+WorkingDirectory=/home/torlinkrotator/TorLinkRotator
 
 # For specify correct threads & workers check this resource
 # https://docs.gunicorn.org/en/stable/design.html#how-many-workers
-ExecStart=/webapps/torlinkrotator/tor-link-rotator/tmp/venv/bin/gunicorn \
+ExecStart=/home/torlinkrotator/TorLinkRotator/tmp/venv/bin/gunicorn \
 		--access-logfile - \
-		--error-logfile /webapps/torlinkrotator/tor-link-rotator/tmp/gunicorn_error.log \
+		--error-logfile /home/torlinkrotator/TorLinkRotator/tmp/gunicorn_error.log \
 		--workers <(2 x num_cores) + 1> \
 		--threads <num_cores> \
-		--chdir /webapps/torlinkrotator/tor-link-rotator \
+		--chdir /home/torlinkrotator/TorLinkRotator \
 		--bind unix:/var/run/gunicorn_torlinkrotator/socket \
 		scripts.wsgi:application
 
