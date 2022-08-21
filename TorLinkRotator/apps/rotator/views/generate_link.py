@@ -30,7 +30,8 @@ class GenerateLinkAPIView(APIView):
                         data={
                             'status': 'OK', 
                             'scheme': settings.TOR_HIDDEN_SERVICE_SCHEME,
-                            'link': f"{cached}.onion"
+                            'link': f"{cached}.onion",
+                            'lifetime': settings.TOR_HIDDEN_SERVICE_EXPIRE
                         },
                         status=200
                     )
@@ -70,7 +71,8 @@ class GenerateLinkAPIView(APIView):
                 data={
                     'status': 'OK',
                     'scheme': settings.TOR_HIDDEN_SERVICE_SCHEME,
-                    'link': f"{link.onion_id}.onion"
+                    'link': f"{link.onion_id}.onion",
+                    'lifetime': settings.TOR_HIDDEN_SERVICE_EXPIRE
                 },
                 status=200
             )

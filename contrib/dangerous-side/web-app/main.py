@@ -1,5 +1,6 @@
 import re
 import random
+import datetime
 import aiohttp
 from aiohttp import web
 from aiohttp_socks import ProxyType, ProxyConnector
@@ -44,7 +45,7 @@ async def web_handler(request):
     if resp.get('status', None) == 'OK':
         subdomain = '.'.join(request.host.split('.')[:-2])
         return web.Response(
-            text=f"""<html><head><meta http-equiv="refresh" content="10;url={resp['scheme']}://{subdomain + '.' if len(subdomain) > 0 else ''}{resp['link']}{request.raw_path}" /></head><body><p>You will be redirected in 10-15 seconds</p></body></html>""",
+            text=f"""<html><head><meta http-equiv="refresh" content="10;url={resp['scheme']}://{subdomain + '.' if len(subdomain) > 0 else ''}{resp['link']}{request.raw_path}" /></head><body><p>You will be redirected in 10-15 seconds</p><br><p>If you see a "Onion not found" error, please click on the "New Tor Circuit for this Site" button.</p>{'<br><p>The mirror will be deleted ' + str(int(datetime.timedelta(seconds=resp['lifetime']).total_seconds() // 3600)) + ' hours after the redirect</p>' if resp.get('lifetime') is not None else ''}</body></html>""",
             content_type='text/html'
         )
     else:
