@@ -69,6 +69,7 @@ async def index(request):
 app = web.Application()
 app.add_routes([
     web.get(r'/_', index, allow_head=True),
+    web.post(r'/_', index),
     web.get(r'/{path:.*}', web_handler, allow_head=False),
     web.post(r'/{path:.*}', web_handler)
 ])
