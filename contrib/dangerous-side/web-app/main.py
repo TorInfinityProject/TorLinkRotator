@@ -1,4 +1,5 @@
 import re
+import urllib
 import random
 import datetime
 import aiohttp
@@ -45,7 +46,7 @@ async def web_handler(request):
     if resp.get('status', None) == 'OK':
         subdomain = '.'.join(request.host.split('.')[:-2])
         return web.Response(
-            text=f"""<html><head><meta http-equiv="refresh" content="10;url={resp['scheme']}://{subdomain + '.' if len(subdomain) > 0 else ''}{resp['link']}{request.raw_path}" /></head><body><p>You will be redirected in 10-15 seconds</p><br><p>If you see a "Onion not found" error, please click on the "New Tor Circuit for this Site" button.</p>{'<br><p>The mirror will be deleted ' + str(int(datetime.timedelta(seconds=resp['lifetime']).total_seconds() // 3600)) + ' hours after the redirect</p>' if resp.get('lifetime') is not None else ''}</body></html>""",
+            text=f"""<html><head><meta http-equiv="refresh" content="10;url={resp['scheme']}://{subdomain + '.' if len(subdomain) > 0 else ''}{resp['link']}{urllib.parse.quote(request.path)}{'?' + urllib.parse.urlencode(request.query) if len(request.query) > 0 else ''}" /></head><body><p>You will be redirected in 10-15 seconds</p><br><p>If you see a "Onion not found" error, please click on the "New Tor Circuit for this Site" button.</p>{'<br><p>The mirror will be deleted ' + str(int(datetime.timedelta(seconds=resp['lifetime']).total_seconds() // 3600)) + ' hours after the redirect</p>' if resp.get('lifetime') is not None else ''}</body></html>""",
             content_type='text/html'
         )
     else:
@@ -61,7 +62,7 @@ async def index(request):
         text=config.INDEX_HTML.format(
             alias_subdomain_name=' ' + alias_name if alias_name is not None else '',
             subdomain=subdomain + '.' if len(subdomain) > 0 else '',
-            query_params='?' + request.query_string if len(request.query_string) > 0 else ''
+            query_params='?' + urllib.parse.urlencode(request.query) if len(request.query) > 0 else ''
         ),
         content_type='text/html'
     )
