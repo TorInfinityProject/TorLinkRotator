@@ -41,12 +41,15 @@ async def web_handler(request):
     
     status, resp = await get_link(recipient)
     if not status:
-        return web.Response(text="error, can't connect to rotation gateway. Try refreshing the page")
+        return web.Response(
+            text="""<html><head><meta http-equiv="refresh" content="1"></head><body><p>We Are Sorry! Error while connecting to rotation gateway. Trying refreshing the page...</p></body><footer><br><p>Source code of Rotation System created by Infinity Team - <a href="https://github.com/TorInfinityProject/TorLinkRotator">Github Link</a></p><p>If you found this Rotation System useful, visit the developers website and buy them a cup of coffee - <a href="https://infinity.taxi/">Infinity Project</a></p></footer></html>""",
+            content_type='text/html'
+        )
     
     if resp.get('status', None) == 'OK':
         subdomain = '.'.join(request.host.split('.')[:-2])
         return web.Response(
-            text=f"""<html><head><meta http-equiv="refresh" content="10;url={resp['scheme']}://{subdomain + '.' if len(subdomain) > 0 else ''}{resp['link']}{urllib.parse.quote(request.path)}{'?' + urllib.parse.urlencode(request.query) if len(request.query) > 0 else ''}" /></head><body><p>You will be redirected in 10-15 seconds</p><br><p>If you see a "Onion not found" error, please click on the "New Tor Circuit for this Site" button.</p>{'<p>The mirror will be deleted ' + str(int(datetime.timedelta(seconds=resp['lifetime']).total_seconds() // 3600)) + ' hours after the redirect</p>' if resp.get('lifetime') is not None else ''}<br></body><footer><p>Source code of Rotation System created by Infinity Team - <a href="https://github.com/TorInfinityProject/TorLinkRotator">Github Link</a></p><p>If you found this Rotation System useful, visit the developers website and buy them a cup of coffee - <a href="https://infinity.taxi/">Infinity Project</a></p><footer></html>""",
+            text=f"""<html><head><meta http-equiv="refresh" content="10;url={resp['scheme']}://{subdomain + '.' if len(subdomain) > 0 else ''}{resp['link']}{urllib.parse.quote(request.path)}{'?' + urllib.parse.urlencode(request.query) if len(request.query) > 0 else ''}" /></head><body><p>You will be redirected in 10-15 seconds</p><br><p>If you see a "Onion not found" error, please click on the "New Tor Circuit for this Site" button.</p>{'<p>The mirror will be deleted ' + str(int(datetime.timedelta(seconds=resp['lifetime']).total_seconds() // 3600)) + ' hours after the redirect</p>' if resp.get('lifetime') is not None else ''}</body><footer><br><p>Source code of Rotation System created by Infinity Team - <a href="https://github.com/TorInfinityProject/TorLinkRotator">Github Link</a></p><p>If you found this Rotation System useful, visit the developers website and buy them a cup of coffee - <a href="https://infinity.taxi/">Infinity Project</a></p></footer></html>""",
             content_type='text/html'
         )
     else:
