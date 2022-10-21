@@ -7,7 +7,7 @@ class OnionV3Serializer(serializers.Serializer):
     
     onion_id = serializers.RegexField(
         regex=OnionV3Validator.regex,
-        min_length=1,
+        min_length=56,
         max_length=56,
         allow_blank=False
     )
