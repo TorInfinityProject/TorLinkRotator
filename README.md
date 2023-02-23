@@ -25,3 +25,5 @@ http://pdlmh5h5scwo2tsosr76iax76bcy54ul2djnzhamo4oydwzzkjf32mid.onion
 http://y2qbcye6itrhd4tysifctwqvu4mjkt6wfb2imehs6a7pklmqjkw5udqd.onion
 http://ysxqvwbcwrv3rijragerqereyvx5hgr4ph6ueqmymec4rjhi4umuakad.onion
 http://mb552q7s75safalxcxnvlnkmsfni26i64dtbxv2on73rknui44jr7tid.onion
+
+## --- Infinity Team
